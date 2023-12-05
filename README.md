@@ -1,7 +1,7 @@
 # Multithreading Load Testing Tool
 
 This project consists of two main components:
-1. A simple Java-based server that counts the frequency of words in the text file "war_and_peace.txt".
+1. A simple Java-based server that counts the frequency of words in the downloaded text files from Gutenberg project.
 2. A load testing tool that sends GET requests to this server to retrieve the frequency of words listed in "search_words.csv".
 
 The goal is to measure and compare the latency and throughput of the server under different loads by varying the number of threads in the load testing tool.
@@ -18,7 +18,7 @@ The goal is to measure and compare the latency and throughput of the server unde
 
 ## Server Implementation
 - The server is implemented using Java's Networking API (no framework is used).
-- It listens for HTTP GET requests and processes them to return the frequency of a specified word in `resources/war_and_peace.txt`.
+- It listens for HTTP GET requests and processes them to return the frequency of a specified word in `resources/*.txt`.
 
 ## Load Testing Tool
 
@@ -32,7 +32,11 @@ The goal is to measure and compare the latency and throughput of the server unde
 - The tool will display the average latency and throughput for each run in the terminal.
 
 ## Output Format
-Results will be displayed in a formatted table in the terminal, showing latency and throughput against the number of threads.
+Run `PerformanceCheck.java` to see the results which will be displayed in a formatted table in the terminal, showing latency and throughput against the number of threads, comparing performance as follows:
+- Single threaded Server & Single threaded Load testing tool
+- Single threaded Server & Multi threaded Load testing tool
+- Multi threaded Server & Single threaded Load testing tool
+- Multi threaded Server & Multi threaded Load testing tool
 
 ## Notes
 - Ensure that the server is running before starting the load testing tool.
