@@ -1,4 +1,4 @@
-package com.loadTestingTool;
+package loadTestingTool;
 
 public class LoadTester {
   
