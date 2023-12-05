@@ -21,6 +21,7 @@ public class Server {
   private int numberOfThreads;
   private static final String RESOURCES_DIR = "resources/";
   private Map<String, String> books;
+  private HttpServer server;
 
   public Server(int numberOfThreads) {
     this.numberOfThreads = numberOfThreads;
@@ -45,13 +46,25 @@ public class Server {
     }
   }
 
-  public void runServer() throws IOException {
-    HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+  public void runServer() {
+    server = null;
+    try {
+      server = HttpServer.create(new InetSocketAddress(8000), 0);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return;
+    }
     server.createContext("/search", new WordCountHandler(books));
     Executor executor = numberOfThreads > 1 ? Executors.newFixedThreadPool(numberOfThreads)
         : Executors.newSingleThreadExecutor();
     server.setExecutor(executor);
     server.start();
+  }
+
+  public void stopServer() {
+    if (server != null) {
+      server.stop(0);
+    }
   }
 
   static class WordCountHandler implements HttpHandler {
